@@ -1,9 +1,6 @@
 namespace ReflectionExample
 {
     using System.Reflection;
-    using System.Collections;
-    using Crestron;
-    using CrestronSharp;
     using System.Text;
 
     public partial class Form1 : Form
@@ -22,20 +19,21 @@ namespace ReflectionExample
             }
 
             instance = this;
-        }
 
+        }
         private void cbObList_SelectedIndexChanged(object sender, EventArgs e)
         {
             var objectname = string.Empty + ((ComboBox)sender).SelectedItem;
             var type = assb.GetType(objectname);
-            DisplayType(type);
+            DisplayType(type, objectname);
         }
 
-        private void DisplayType<T>(T obj)
+        private void DisplayType<T>(T obj,string obname)
         {
             StringBuilder sb = new StringBuilder();
             Type thetype = typeof(T);
-            sb.AppendLine(thetype.FullName);
+
+            sb.AppendLine("Type: " + obname);
             foreach (var props in thetype.GetProperties())
             {
                 if (props != null) { sb.AppendLine("\tProperty: " + props.Name); }
@@ -49,10 +47,5 @@ namespace ReflectionExample
     }
 
 
-
-    //public void DisplayObjectData<T>(T obj)
-    //{
-
-    //}
 
 }
